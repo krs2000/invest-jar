@@ -1,0 +1,168 @@
+$white:#fff;
+$grey: #d9e1e8;
+$blue: #47b8e0;
+$red: #ff7473;
+$dark:#34314c;
+$yellow: #ffc952;
+$green:#8CD790;
+body {
+    font-family: helvetica;
+    background-color: $white;
+    letter-spacing: .1em;
+}
+
+%btn {
+    border: 0;
+    width: 46%;
+    margin:  2% 0 0 2%;
+    height: 80px;
+    font-size: 18px;
+    display: inline-block;
+    position: relative;
+    text-transform: uppercase;
+    text-align: space-around;
+    color: $white;
+    &:focus {
+        outline: none
+    }
+    &:hover {
+        opacity: 1;
+    }
+}
+
+%flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@mixin btn-color($prop) {
+    @extend %btn;
+    background: $prop;
+    &:hover {
+        background: darken($prop, 10%)
+    }
+}
+
+.history-btn {
+    @include btn-color($green)
+}
+
+.invest-btn {
+    @include btn-color($blue)
+}
+
+.cash-out-btn {
+    @include btn-color($red)
+}
+
+.jar-box {
+    position: relative;
+    width: 225px;
+    height: 250px;
+    text-align: center;
+    margin: 50px auto;
+    .default-star {
+        color: $yellow;
+        position: absolute;
+        top: 50px;
+        text-align: center;
+        left: calc(50% - 9px);
+        font-size: 21px;
+        z-index: 3;
+    }
+    .jar-top {
+        border-radius: 20%;
+        border: 2px solid darken($yellow, 10%);
+        background-color: $yellow;
+        margin-left: 50px;
+        width: 125px;
+        height: 10px;
+    }
+    .jar-middle {
+        position: relative;
+        margin-left: 60px;
+        width: 105px;
+        height: 20px;
+        background-color: $dark;
+        &:after {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 97px;
+            border-radius: 50% / 50%;
+            width: 5px;
+            height: 150px;
+            background: rgba(186, 186, 221, 0.2);
+        }
+    }
+    .jar-bottom {
+        position: relative;
+        border-radius: 10%;
+        margin-left: 10px;
+        padding-top: 50px;
+        width: 205px;
+        height: 160px;
+        background-color: $dark;
+        .label {
+            @extend %flex-center;
+            color: $dark;
+            margin-left: 20px;
+            border-radius: 35% / 50%;
+            width: 165px;
+            height: 60px;
+            background-color: $grey;
+            border: 3px solid darken($grey, 20%);
+            font-size: 18px;
+        }
+        .value {
+            margin-top: 50px;
+            font-size: 12px;
+            color: $yellow;
+        }
+        &:after {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 197px;
+            border-radius: 35% / 50%;
+            width: 5px;
+            height: 150px;
+            background: rgba(186, 186, 221, 0.2);
+        }
+    }
+    .properties-btn {
+        @include btn-color($green);
+        position: absolute;
+        top: -10px;
+        left: 185px;
+        width: 48px !important;
+        height: 48px;
+        border-radius: 50%;
+        z-index: 1;
+    }
+}
+
+@media (min-width: 768px) {
+    %btn {
+        width: 100%;
+    }
+    .jar-box{
+      margin: 50px 50px 0 0 ;
+    }
+
+    #sidebar {
+        width: 210px;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        padding: 30px 0 0 70px;
+        font-weight: 700;
+        position: fixed;
+    }
+    #main {
+        width: calc(100% - 400px);
+        margin-left: 400px;
+        padding: 50px 80px 0 0;
+    }
+}
