@@ -1,0 +1,47 @@
+$white: #fff;
+$grey: #d9e1e8;
+$blue: #47b8e0;
+$red: #ff7473;
+$dark:#34314c;
+$yellow: #ffc952;
+$green: #8CD790;
+
+%flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+%btn {
+    border: 0;
+    width: 45%;
+    margin:  2% 0 0 2%;
+    height: 80px;
+    font-size: 18px;
+    display: inline-block;
+    position: relative;
+    text-transform: uppercase;
+    color: $white;
+    &:focus {
+        outline: none
+    }
+    &:hover {
+        opacity: 1;
+    }
+    &.w-100{
+        width: 100%;
+        margin:  2% 0 0 0;
+    }
+}
+
+@mixin btn-color($prop) {
+    @extend %btn;
+    background: $prop;
+    &:hover {
+        background: darken($prop, 10%)
+    }
+}
+
+
+

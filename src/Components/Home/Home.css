@@ -1,58 +1,38 @@
-body {
-  font-family: helvetica;
-  background-color: #fff;
-  letter-spacing: .1em;
-}
-
-.history-btn, .invest-btn, .cash-out-btn, .jar-box .properties-btn {
-  border: 0;
-  width: 46%;
-  margin: 2% 0 0 2%;
-  height: 80px;
-  font-size: 18px;
-  display: inline-block;
-  position: relative;
-  text-transform: uppercase;
-  text-align: space-around;
-  color: #fff;
-}
-
-.history-btn:focus, .invest-btn:focus, .cash-out-btn:focus, .jar-box .properties-btn:focus {
-  outline: none;
-}
-
-.history-btn:hover, .invest-btn:hover, .cash-out-btn:hover, .jar-box .properties-btn:hover {
-  opacity: 1;
-}
-
 .jar-box .jar-bottom .label {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.history-btn {
-  background: #8CD790;
+.jar-box .properties-btn {
+  border: 0;
+  width: 45%;
+  margin: 2% 0 0 2%;
+  height: 80px;
+  font-size: 18px;
+  display: inline-block;
+  position: relative;
+  text-transform: uppercase;
+  color: #fff;
 }
 
-.history-btn:hover {
-  background: #66ca6b;
+.jar-box .properties-btn:focus {
+  outline: none;
 }
 
-.invest-btn {
-  background: #47b8e0;
+.jar-box .properties-btn:hover {
+  opacity: 1;
 }
 
-.invest-btn:hover {
-  background: #23a3d1;
+.jar-box .w-100.properties-btn {
+  width: 100%;
+  margin: 2% 0 0 0;
 }
 
-.cash-out-btn {
-  background: #ff7473;
-}
-
-.cash-out-btn:hover {
-  background: #ff4140;
+body {
+  font-family: helvetica;
+  background-color: #fff;
+  letter-spacing: .1em;
 }
 
 .jar-box {
@@ -154,25 +134,37 @@ body {
   background: #66ca6b;
 }
 
-@media (min-width: 768px) {
-  .history-btn, .invest-btn, .cash-out-btn, .jar-box .properties-btn {
-    width: 100%;
-  }
+@media (min-width: 540px) {
   .jar-box {
     margin: 50px 50px 0 0;
   }
-  #sidebar {
-    width: 210px;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    padding: 30px 0 0 70px;
-    font-weight: 700;
-    position: fixed;
-  }
   #main {
-    width: calc(100% - 400px);
+    width: calc(100% - 500px);
     margin-left: 400px;
     padding: 50px 80px 0 0;
+  }
+}
+
+.slide {
+  position: absolute;
+  left: -600px;
+  width: 600px;
+  height: 370px;
+  background: blue;
+  -webkit-animation: slide 0.5s forwards;
+  -webkit-animation-delay: 2s;
+  animation: slide 0.5s forwards;
+  animation-delay: 2s;
+}
+
+@-webkit-keyframes slide {
+  100% {
+    left: 0;
+  }
+}
+
+@keyframes slide {
+  100% {
+    left: 0;
   }
 }

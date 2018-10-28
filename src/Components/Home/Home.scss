@@ -1,59 +1,10 @@
-$white:#fff;
-$grey: #d9e1e8;
-$blue: #47b8e0;
-$red: #ff7473;
-$dark:#34314c;
-$yellow: #ffc952;
-$green:#8CD790;
+@import '~../SharedStyles';
+
 body {
+
     font-family: helvetica;
     background-color: $white;
     letter-spacing: .1em;
-}
-
-%btn {
-    border: 0;
-    width: 46%;
-    margin:  2% 0 0 2%;
-    height: 80px;
-    font-size: 18px;
-    display: inline-block;
-    position: relative;
-    text-transform: uppercase;
-    text-align: space-around;
-    color: $white;
-    &:focus {
-        outline: none
-    }
-    &:hover {
-        opacity: 1;
-    }
-}
-
-%flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-@mixin btn-color($prop) {
-    @extend %btn;
-    background: $prop;
-    &:hover {
-        background: darken($prop, 10%)
-    }
-}
-
-.history-btn {
-    @include btn-color($green)
-}
-
-.invest-btn {
-    @include btn-color($blue)
-}
-
-.cash-out-btn {
-    @include btn-color($red)
 }
 
 .jar-box {
@@ -143,26 +94,35 @@ body {
     }
 }
 
-@media (min-width: 768px) {
-    %btn {
-        width: 100%;
-    }
+@media (min-width: 540px) {
+
     .jar-box{
       margin: 50px 50px 0 0 ;
     }
 
-    #sidebar {
-        width: 210px;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        padding: 30px 0 0 70px;
-        font-weight: 700;
-        position: fixed;
-    }
     #main {
-        width: calc(100% - 400px);
+        width: calc(100% - 500px);
         margin-left: 400px;
         padding: 50px 80px 0 0;
     }
+}
+
+.slide {
+    position: absolute;
+    left: -600px;
+    width: 600px;
+    height: 370px;
+    background: blue;
+    -webkit-animation: slide 0.5s forwards;
+    -webkit-animation-delay: 2s;
+    animation: slide 0.5s forwards;
+    animation-delay: 2s;
+}
+
+@-webkit-keyframes slide {
+    100% { left: 0; }
+}
+
+@keyframes slide {
+    100% { left: 0; }
 }
