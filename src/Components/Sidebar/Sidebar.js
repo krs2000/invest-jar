@@ -1,7 +1,7 @@
 import { Link, withRouter } from 'react-router-dom';
 import React from 'react';
 import './Sidebar.css';
-import { savings } from '../../Actions';
+import { savings_subtract, savings_add, history_add } from '../../Actions';
 import { connect } from 'react-redux';
 
 class Sidebar extends React.Component {
@@ -11,23 +11,21 @@ class Sidebar extends React.Component {
     }
 
 
-    // componentDidMount() {
-    //     console.log(this.props)
-    // }
-
     handleChange = (e) => {
         this.setState({ value: e.target.value });
     }
 
-    canWidraw = ()=>{
-      return  this.state.value <= this.props.jarList[0].account ? true : false
+    canWidraw = () => {
+        return this.state.value <= this.props.jarList[0].account ? true : false
     }
 
     handleSubmit = (e) => {
         if (this.props.activeLink === '/invest') {
-            this.props.savings(this.props.jarList, Number(this.state.value), true)
+            this.props.savings_add(this.props.jarList, Number(this.state.value))
+            this.props.history_add(this.props.jarList[0] , 'Invest', Number(this.state.value), this.props.historyList)
         } else if (this.canWidraw()) {
-            this.props.savings(this.props.jarList, Number(this.state.value), false)
+            this.props.savings_subtract(this.props.jarList, Number(this.state.value))
+            this.props.history_add(this.props.jarList[0] , 'Widraw', Number(this.state.value), this.props.historyList)
             this.props.history.push('/')
         }
     };
@@ -73,7 +71,7 @@ class Sidebar extends React.Component {
                 <div className='sidebar-header'> <Link to={`/`}>
                     <button className='return-btn'>🡄</button>
                 </Link><h2>Widraw</h2></div>
-                <input className={this.canWidraw() ? 'input' : 'input warning' } type='number' placeholder='How much?'
+                <input className={this.canWidraw() ? 'input' : 'input warning'} type='number' placeholder='How much?'
                     onChange={this.handleChange}
                     min='0'
                 />
@@ -99,10 +97,11 @@ class Sidebar extends React.Component {
 
 function mapStateToProps(state) {
     return {
-        jarList: state.jarList
+        jarList: state.jarList,
+        historyList: state.historyList
     };
 }
-export default withRouter(connect(mapStateToProps, { savings })(Sidebar));
+export default withRouter(connect(mapStateToProps, { savings_subtract, savings_add, history_add })(Sidebar));
 
 
 
