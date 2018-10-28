@@ -1,0 +1,73 @@
+@import '~../SharedStyles';
+h2 {
+    width: calc(95% - 48px);
+    padding-left: 5%;
+    margin: 0;
+}
+
+.green-btn {
+    @include btn-color($green)
+}
+
+.blue-btn {
+    @include btn-color($blue)
+}
+
+.red-btn {
+    @include btn-color($red)
+}
+
+.grey-btn {
+    @include btn-color(darken($grey, 20%))
+
+}
+
+.return-btn {
+    @include btn-color($red);
+    height: 80px;
+    width: 48px !important;
+    font-size: 16px;
+}
+
+.input {
+    margin-top: 2%;
+    border: 2px $dark solid;
+    width: 100%;
+    padding: 16px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    height: 80px;
+    font-size: 18px;
+    &:focus {
+        outline-color: $dark
+    }
+    &.warning {
+        border: 2px $red solid;
+        outline-color: $red
+    }
+}
+
+.sidebar-header {
+    @extend %flex-center;
+    width: 100%
+}
+
+@media (min-width: 540px) {
+    .sidebar {
+        width: 210px;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        padding: 30px 30px 0 70px;
+        font-weight: 700;
+        position: fixed;
+    }
+    %btn,
+    label,
+    .sidebar-header,
+    .input {
+        margin: 2% 0 0 2% !important;
+        width: 100%;
+    }
+}

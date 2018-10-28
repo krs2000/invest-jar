@@ -1,0 +1,23 @@
+@import '~../SharedStyles';
+.history {
+    margin: 2% 0 0 2%;
+    min-width: 1000px;
+}
+
+.table-header {
+    font-weight: bold;
+    text-transform: uppercase;
+    background: $grey;
+    cursor:pointer;
+}
+
+.table-header,
+.table-row {
+    display: flex;
+    border-bottom: 2px solid $dark;
+    div {
+        @extend %flex-center;
+        min-height: 40px;
+        width: 20%
+    }
+}
