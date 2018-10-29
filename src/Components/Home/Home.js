@@ -17,21 +17,19 @@ class Home extends Component {
   }
 
   returnJar = (x) => {
-    return(
-    <div className='jar-box'  key={`jar-${x.id}`}>
-      {/* <div className='default-star'>🟊</div> */}
-      <button className='properties-btn'>☰
-    </button>
-      <div className='jar-top'></div>
-      <div className='jar-middle'>
-      </div>
-      <div className='jar-bottom'>
+    return (
+      <div className='jar-box' key={`jar-${x.id}`}>
+        {/* <div className='default-star'>🟊</div> */}
+        {/* <button className='properties-btn'>☰</button> */}
+        <div className='jar-top'></div>
+        <div className='jar-middle'></div>
+        <div className='jar-bottom'>
         <div className='label'>{x.label}</div>
-        <div className='value'>{x.account}</div>
-      </div>
-      <div>
-      </div>
-    </div>)
+         <div className='value'>{x.account}</div>
+        </div>
+        <div>
+        </div>
+      </div>)
   }
 
 
@@ -41,7 +39,6 @@ class Home extends Component {
         <Sidebar activeLink={this.props.location.pathname} />
         <div id='main'>
           {this.props.jarList && this.props.jarList.map(item => {
-            console.log(item)
             return (this.returnJar(item))
           })}
         </div>

@@ -20,6 +20,7 @@ ReactDOM.render(
                 <Route exact path='/history' component={HistoryComponent} />
                 <Route exact path='/widraw' component={Home} />
                 <Route exact path='/invest' component={Home} />
+                <Route exact path='/transfer' component={Home} />
                 <Route exact path='/add' component={Home} />
                 <Route exact path='/' component={Home} />
             </Switch>

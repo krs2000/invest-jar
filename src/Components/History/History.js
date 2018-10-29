@@ -11,6 +11,7 @@ class History extends React.Component {
             sortedHistoryList: [],
             sortedBy: 'date',
             sortedIsAsc: false,
+            search: ''
         };
     }
 
@@ -30,12 +31,16 @@ class History extends React.Component {
         )
     }
 
+    handleValue = (e) => {
+        this.setState({ search: e.target.value });
+    }
+
     sortTable = (type) => {
         const sortedHistoryList = this.state.sortedHistoryList;
                
           const compare = (a, b) => {
                 if (a[type] < b[type] )
-                    return this.state.sortedIsAsc ? 1 : 1;
+                    return this.state.sortedIsAsc ? 1 : -1;
                 if (a[type]  > b[type] )
                     return this.state.sortedIsAsc ? -1: 1;
                 return 0;}       
@@ -51,16 +56,19 @@ class History extends React.Component {
                     <button className='return-btn'>🡄</button>
                 </Link><h2>History</h2>
                 </div>
+                <input className={true ? 'input' : 'input warning'} type='text' placeholder='search Label'
+                    onChange={this.handleValue}
+                />
                 <div className='history'>
                     <div className='table-header'>
-                        <div onClick={()=>this.sort()}>label</div>
+                        <div>label</div>
                         <div onClick={()=>this.sortTable('transaction')}>type {this.state.sortedBy === 'transaction' ? this.state.sortedIsAsc ? '⬆' :'⬇' : '⬍' }</div>
                         <div onClick={()=>this.sortTable('date')}>date {this.state.sortedBy === 'date' ? this.state.sortedIsAsc ? '⬆' :'⬇' : '⬍' }</div>
                         <div onClick={()=>this.sortTable('value')}>value {this.state.sortedBy === 'value' ? this.state.sortedIsAsc ? '⬆' :'⬇' : '⬍' }</div>
                         <div onClick={()=>this.sortTable('account')}>saldo {this.state.sortedBy === 'account' ? this.state.sortedIsAsc ? '⬆' :'⬇' : '⬍' }</div>
                     </div>
-                    { this.state.sortedHistoryList.map(item => {
-                            return (this.returnHistoryItem(item))
+                    { this.state.sortedHistoryList.filter(x => x.label.toUpperCase().includes(this.state.search.toUpperCase())).map(x => {
+                            return (this.returnHistoryItem(x))
                         })}
                 </div>
             </div>
