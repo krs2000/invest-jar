@@ -9,8 +9,8 @@ class Sidebar extends React.Component {
         super(props);
         this.state = {
             value: '',
-            select: 'default',
-            selectSecond: 'default'
+            optionA: '',
+            optionB: ''
         };
     }
 
@@ -18,8 +18,8 @@ class Sidebar extends React.Component {
         if (this.props.location !== prevProps.location) {
             this.setState({
                 value: '',
-                select: 'default',
-                selectSecond: 'default'
+                optionA: '',
+                optionB: ''
             });
         }
     }
@@ -28,17 +28,17 @@ class Sidebar extends React.Component {
         this.setState({ value: e.target.value });
     }
 
-    handleSelect = (e) => {
-        this.setState({ select: e.target.value });
+    handleOptionA = (e) => {
+        this.setState({ optionA: e.target.value });
     }
 
-    handleSelectSecond = (e) => {
-        this.setState({ selectSecond: e.target.value });
+    handleOptionB = (e) => {
+        this.setState({ optionB: e.target.value });
     }
 
     canWidraw = () => {
-        if (this.state.select !== 'default' && this.state.value)
-            return this.state.value <= this.props.jarList[this.state.select].account ? true : false
+        if (this.state.optionA !== '' && this.state.value)
+            return this.state.value <= this.props.jarList[this.state.optionA].account ? true : false
         else
             return false
     }
@@ -48,31 +48,31 @@ class Sidebar extends React.Component {
     }
 
     canTransfer = () => {
-        return (this.props.jarList[this.state.select].account > this.props.jarList[this.state.selectSecond].account && this.state.value && this.state.select !== 'default' && this.state.selectSecond !== 'default') ? true : false
+        return (this.props.jarList[this.state.optionA].account > this.props.jarList[this.state.optionB].account && this.state.value && this.state.optionA !== '' && this.state.optionB !== '') ? true : false
     }
 
     canInvest = () => {
-        return (this.state.select !== 'default' && this.state.value) ? true : false
+        return (this.state.optionA !== '' && this.state.value) ? true : false
     }
 
 
 
     handleSubmit = (e) => {
         if (this.props.activeLink === '/invest' && this.canInvest()) {
-            this.props.savings_add(this.props.jarList[this.state.select].id, this.props.jarList, Number(this.state.value))
-            this.props.history_add(this.props.jarList[this.state.select], 'Invest', Number(this.state.value), this.props.historyList)
+            this.props.savings_add(this.props.jarList[this.state.optionA].id, this.props.jarList, Number(this.state.value))
+            this.props.history_add(this.props.jarList[this.state.optionA], 'Invest', Number(this.state.value), this.props.historyList)
             this.props.history.push('/')
 
         } else if (this.props.activeLink === '/widraw' && this.canWidraw()) {
-            this.props.savings_subtract(this.props.jarList[this.state.select].id, this.props.jarList, Number(this.state.value))
-            this.props.history_add(this.props.jarList[this.state.select], 'Widraw', Number(this.state.value), this.props.historyList)
+            this.props.savings_subtract(this.props.jarList[this.state.optionA].id, this.props.jarList, Number(this.state.value))
+            this.props.history_add(this.props.jarList[this.state.optionA], 'Widraw', Number(this.state.value), this.props.historyList)
             this.props.history.push('/')
         } else if (this.props.activeLink === '/add' && this.canAdd()) {
             this.props.jar_add(this.props.jarList, this.state.value)
             this.props.history.push('/')
         } else if (this.props.activeLink === '/transfer' && this.canTransfer()) {
-            this.props.savings_transfer(this.props.jarList[this.state.select].id, this.props.jarList[this.state.selectSecond].id, this.props.jarList, Number(this.state.value))
-            this.props.history_add_multiple([this.props.jarList[this.state.select], this.props.jarList[this.state.selectSecond]], 'Transfer', Number(this.state.value), this.props.historyList)
+            this.props.savings_transfer(this.props.jarList[this.state.optionA].id, this.props.jarList[this.state.optionB].id, this.props.jarList, Number(this.state.value))
+            this.props.history_add_multiple([this.props.jarList[this.state.optionA], this.props.jarList[this.state.optionB]], 'Transfer', Number(this.state.value), this.props.historyList)
             this.props.history.push('/')
         }
     };
@@ -100,7 +100,9 @@ class Sidebar extends React.Component {
         )
     }
 
-    returnSidebarInvest = () => {
+    
+
+    returnInvestSidebar = () => {
         return (
             <div className='sidebar'>
                 { returnHeader('Add Investment') }
@@ -110,87 +112,72 @@ class Sidebar extends React.Component {
                 <input className='input' value={this.state.value} type='number' placeholder='How much?' min='0'
                     onChange={this.handleValue}
                 />
-                <select className='input' value={this.state.select} onChange={this.handleSelect}>
-                    <option disabled hidden value='default'>Select Jar</option>
+                <select className='input' value={this.state.optionA} onChange={this.handleOptionA}>
+                    <option disabled hidden value=''>Choose jar</option>
                     {this.props.jarList && this.props.jarList.map((x, index) => {
-                        return (<option value={index} key={`label-${x.id}`}>{x.label}</option>)
+                        return (<option  value={index} key={`label-${x.id}`}>{x.label}</option>)
                     })}
-                </select>
+                   </select>
             </div>
         )
     }
 
-    returnSidebarWidraw = () => {
+    returnWidrawSidebar = () => {
         return (
             <div className='sidebar'>
                 { returnHeader('Widraw') }
                 <button className='blue-btn w-100'
                     onClick={this.handleSubmit}
                 >Confirm</button>
-                <input className={this.canWidraw() || this.state.select === 'default' ? 'input' : 'input warning'} type='number' placeholder='How much?'
+                <input className={this.canWidraw() || this.state.optionA === '' ? 'input' : 'input warning'} type='number' placeholder='How much?'
                     onChange={this.handleValue}
                     min='0'
                     value={this.state.value}
                 />
-                <select className={this.canWidraw() || this.state.select === 'default' ? 'input' : 'input warning'} value={this.state.select} onChange={this.handleSelect}>
-                    <option disabled hidden value='default'>Select Jar</option>
+                <select className={this.canWidraw() || this.state.optionA === '' ? 'input' : 'input warning'} value={this.state.optionA} onChange={this.handleOptionA}>
+                    <option disabled hidden value=''>Choose jar</option>
                     {this.props.jarList && this.props.jarList.map((x, index) => {
-                        return (<option value={index} key={`label-${x.id}`}>{x.label}</option>)
+                        return (<option  value={index} key={`label-${x.id}`}>{x.label}</option>)
                     })}</select>
             </div>
         )
     }
 
-    returnSidebarTransfer = () => {
+    returnTransferSidebar = () => {
         return (
             <div className='sidebar'>
               { returnHeader('Transfer') }
                 <button className='blue-btn w-100'
                     onClick={this.handleSubmit}
                 >Confirm</button>
-                <input className={this.canWidraw() || (this.state.selectSecond === 'default' && this.state.select === 'default') ? 'input' : 'input warning'} type='number' placeholder='How much?'
+                <input className={this.canWidraw() || (this.state.optionB === '' && this.state.optionA === '') ? 'input' : 'input warning'} type='number' placeholder='How much?'
                     onChange={this.handleValue}
                     min='0'
                     value={this.state.value}
                 />
-                <select className={this.state.select !== this.state.selectSecond || (this.canWidraw() || (this.state.selectSecond === 'default' && this.state.select === 'default')) ? 'input' : 'input warning'} value={this.state.select} onChange={this.handleSelect}>
-                    <option disabled hidden value='default'>From</option>
+                <select className={this.state.optionA !== this.state.optionB || (this.canWidraw() || (this.state.optionB === '' && this.state.optionA === '')) ? 'input' : 'input warning'} value={this.state.optionA} onChange={this.handleOptionA}>
+                    <option disabled hidden value=''>From</option>
                     {this.props.jarList && this.props.jarList.map((x, index) => {
-                        return (<option value={index} key={`label-${x.id}`}>{x.label}</option>)
+                        return (<option  value={index} key={`label-${x.id}`}>{x.label}</option>)
                     })}</select>
-                <select className={this.state.select !== this.state.selectSecond || (this.state.selectSecond !== 'default' || (this.state.selectSecond === 'default' && this.state.select === 'default')) ? 'input' : 'input warning'} value={this.state.selectSecond} onChange={this.handleSelectSecond}>
-                    <option disabled hidden value='default'>To</option>
+                <select className={this.state.optionA !== this.state.optionB || (this.state.optionB !== '' || (this.state.optionB === '' && this.state.optionA === '')) ? 'input' : 'input warning'} value={this.state.optionB} onChange={this.handleOptionB}>
+                    <option disabled hidden value=''>To</option>
                     {this.props.jarList && this.props.jarList.map((x, index) => {
-                        return (<option value={index} key={`label-${x.id}`}>{x.label}</option>)
+                        return (<option  value={index} key={`label-${x.id}`}>{x.label}</option>)
                     })}</select>
             </div>
         )
     }
 
-
-    returnSidebarAdd = () => {
-        return (
-            <div className='sidebar'>
-                       { returnHeader('Add Jar') }
-                <input className='input' type='text' placeholder='Label?'
-                    onChange={this.handleValue}
-                    value={this.state.value}
-                />
-                <button className='blue-btn w-100'
-                    onClick={this.handleSubmit}
-                >Confirm</button>
-            </div>
-        )
-    }
 
     render() {
         return (
             <div>
                 {this.props.activeLink === '/' && this.returnSidebar()}
-                {this.props.activeLink === '/invest' && this.returnSidebarInvest()}
-                {this.props.activeLink === '/widraw' && this.returnSidebarWidraw()}
-                {this.props.activeLink === '/add' && this.returnSidebarAdd()}
-                {this.props.activeLink === '/transfer' && this.returnSidebarTransfer()}
+                {this.props.activeLink === '/invest' && this.returnInvestSidebar()}
+                {this.props.activeLink === '/widraw' && this.returnWidrawSidebar()}
+                {this.props.activeLink === '/add' && this.returnAddSidebar()}
+                {this.props.activeLink === '/transfer' && this.returnTransferSidebar()}
             </div>
         );
     }
