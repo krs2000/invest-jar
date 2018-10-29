@@ -8,11 +8,9 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case HISTORY_ADD:
             newState = [new HistoryRecord(
-                action.value,
-                action.jar.label,
                 action.transaction,
-                action.jar.account)].concat(action.historyList);
-
+                action.value,
+                action.jar)].concat(action.historyList);
             return newState;
             case HISTORY_ADD_MULTIPLE:
             const newItems = [];
