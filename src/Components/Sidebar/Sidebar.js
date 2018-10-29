@@ -48,7 +48,7 @@ class Sidebar extends React.Component {
     }
 
     canTransfer = () => {
-        return (this.state.select !== this.state.selectSecond && this.state.value && this.state.select !== 'default' && this.state.selectSecond !== 'default') ? true : false
+        return ( this.props.jarList[this.state.select].account > this.props.jarList[this.state.selectSecond].account && this.state.value && this.state.select !== 'default' && this.state.selectSecond !== 'default') ? true : false
     }
 
     canInvest = () => {
