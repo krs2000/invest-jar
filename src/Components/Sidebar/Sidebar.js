@@ -1,7 +1,7 @@
 import { Link, withRouter } from 'react-router-dom';
 import React from 'react';
 import './Sidebar.css';
-import { savings_subtract, savings_add, history_add, jar_add, savings_transfer, history_add_multiple,set_currencies } from '../../Actions';
+import { savings_subtract, savings_add, history_add, jar_add, savings_transfer, history_add_multiple, set_currencies } from '../../Actions';
 import { connect } from 'react-redux';
 
 class Sidebar extends React.Component {
@@ -48,7 +48,7 @@ class Sidebar extends React.Component {
     }
 
     canTransfer = () => {
-        return ( this.props.jarList[this.state.select].account > this.props.jarList[this.state.selectSecond].account && this.state.value && this.state.select !== 'default' && this.state.selectSecond !== 'default') ? true : false
+        return (this.props.jarList[this.state.select].account > this.props.jarList[this.state.selectSecond].account && this.state.value && this.state.select !== 'default' && this.state.selectSecond !== 'default') ? true : false
     }
 
     canInvest = () => {
@@ -103,9 +103,7 @@ class Sidebar extends React.Component {
     returnSidebarInvest = () => {
         return (
             <div className='sidebar'>
-                <div className='sidebar-header'> <Link to={`/`}>
-                    <button className='return-btn'>back</button>
-                </Link><h2>Add Investment</h2></div>
+                { returnHeader('Add Investment') }
                 <button className='blue-btn w-100'
                     onClick={this.handleSubmit}
                 >Confirm</button>
@@ -125,9 +123,7 @@ class Sidebar extends React.Component {
     returnSidebarWidraw = () => {
         return (
             <div className='sidebar'>
-                <div className='sidebar-header'> <Link to={`/`}>
-                    <button className='return-btn'>back</button>
-                </Link><h2>Widraw</h2></div>
+                { returnHeader('Widraw') }
                 <button className='blue-btn w-100'
                     onClick={this.handleSubmit}
                 >Confirm</button>
@@ -148,9 +144,7 @@ class Sidebar extends React.Component {
     returnSidebarTransfer = () => {
         return (
             <div className='sidebar'>
-                <div className='sidebar-header'> <Link to={`/`}>
-                    <button className='return-btn'>back</button>
-                </Link><h2>Transfer</h2></div>
+              { returnHeader('Transfer') }
                 <button className='blue-btn w-100'
                     onClick={this.handleSubmit}
                 >Confirm</button>
@@ -177,9 +171,7 @@ class Sidebar extends React.Component {
     returnSidebarAdd = () => {
         return (
             <div className='sidebar'>
-                <div className='sidebar-header'> <Link to={`/`}>
-                    <button className='return-btn'>back</button>
-                </Link><h2>Add Jar</h2></div>
+                       { returnHeader('Add Jar') }
                 <input className='input' type='text' placeholder='Label?'
                     onChange={this.handleValue}
                     value={this.state.value}
@@ -209,11 +201,18 @@ function mapStateToProps(state) {
     return {
         jarList: state.jarList,
         historyList: state.historyList,
-        currenciesList : state.currenciesList
+        currenciesList: state.currenciesList
     };
 }
 
-export default withRouter(connect(mapStateToProps, { set_currencies,savings_transfer, savings_subtract, savings_add, history_add, jar_add, history_add_multiple })(Sidebar));
+export default withRouter(connect(mapStateToProps, { set_currencies, savings_transfer, savings_subtract, savings_add, history_add, jar_add, history_add_multiple })(Sidebar));
 
 
 
+const returnHeader = (header) => {
+    return (
+        <div className='sidebar-header'> <Link to={`/`}>
+            <button className='return-btn'>back</button>
+        </Link><h2>{header}</h2></div>
+    )
+}
