@@ -9,12 +9,13 @@ const euro = new Currency(
 let initialState = [dollar, euro];
 
 export default (state = initialState, action) => {
-    let newState = null;
+    // let newState = null;
     switch (action.type) {
         case SET_CURRENCIES:
         // left for future feature
         //         newState = state.concat([]);
         //     return newState;
+        break;
         default:
             return state;
     };
