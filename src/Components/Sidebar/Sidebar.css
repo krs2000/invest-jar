@@ -30,8 +30,8 @@
 }
 
 h2 {
-  width: calc(95% - 48px);
-  padding-left: 5%;
+  width: calc(95% - 10px);
+  padding-left: 10px;
   margin: 0;
 }
 
@@ -70,8 +70,9 @@ h2 {
 .return-btn {
   background: #ff7473;
   height: 80px;
-  width: 48px !important;
+  width: 80px !important;
   font-size: 16px;
+  float: right;
 }
 
 .return-btn:hover {
@@ -103,9 +104,9 @@ h2 {
   width: 100%;
 }
 
-@media (min-width: 700px) {
+@media (min-width: 768px) {
   .sidebar {
-    width: 210px;
+    width: 250px;
     left: 0;
     top: 0;
     bottom: 0;
@@ -117,7 +118,6 @@ h2 {
   label,
   .sidebar-header,
   .input {
-    margin: 2% 0 0 2% !important;
     width: 100%;
   }
 }

@@ -1,19 +1,13 @@
 @import '~../SharedStyles';
 .history {
-    margin: 2% 0 0 2%;
-    min-width: 1000px;
+    min-width: 600px;
 }
 
 .table-header {
     font-weight: bold;
     text-transform: uppercase;
     background: $grey;
-    cursor:pointer;
-}
-
-.input, .sidebar-header {
-    max-width:240px;
-    margin: 2% 0 0 2%;
+    cursor: pointer;
 }
 
 .table-header,
@@ -23,6 +17,18 @@
     div {
         @extend %flex-center;
         min-height: 40px;
-        width: 20%
+        width: 20%;
+    }
+}
+
+.table-wrap {
+    margin-top: 2%;
+    overflow-x: scroll;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .table-wrap {
+        overflow-x: hidden;
     }
 }
