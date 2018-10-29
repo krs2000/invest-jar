@@ -1,7 +1,7 @@
 import { Jar } from '../Models/jar'
 import { SAVINGS_ADD, SAVINGS_SUBTRACT, JAR_ADD, SAVINGS_TRANSFER } from "../constants";
 
-let initialState = [new Jar("My Jar")];
+let initialState = [];
 
 export default (state = initialState, action) => {
     let newState = [].concat(action.jarList);
