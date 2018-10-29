@@ -82,19 +82,19 @@ class Sidebar extends React.Component {
         return (
             <div className='sidebar'>
                 <Link to={`add`}>
-                    <button className="grey-btn">Add Jar ✚</button>
+                    <button className="grey-btn">Add Jar</button>
                 </Link>
                 <Link to={`history`}>
-                    <button className='grey-btn'>History ◕</button>
+                    <button className='grey-btn'>History</button>
                 </Link>
                 <Link to={`transfer`}>
-                    {this.props.jarList.length > 1 ? <button className="grey-btn">Transfer 🡆</button> : ''}
+                    {this.props.jarList.length > 1 ? <button className="grey-btn">Transfer</button> : ''}
                 </Link>
                 <Link to={`invest`}>
-                    {this.props.jarList.length > 0 ? <button className='green-btn'>Invest 🡅</button> : ''}
+                    {this.props.jarList.length > 0 ? <button className='green-btn'>Invest</button> : ''}
                 </Link>
                 <Link to={`widraw`}>
-                    {this.props.jarList.length > 0 ? <button className='red-btn'>Widraw 🡇</button> : ''}
+                    {this.props.jarList.length > 0 ? <button className='red-btn'>Widraw</button> : ''}
                 </Link>
             </div>
         )
@@ -104,7 +104,7 @@ class Sidebar extends React.Component {
         return (
             <div className='sidebar'>
                 <div className='sidebar-header'> <Link to={`/`}>
-                    <button className='return-btn'>🡄</button>
+                    <button className='return-btn'>back</button>
                 </Link><h2>Add Investment</h2></div>
                 <button className='blue-btn w-100'
                     onClick={this.handleSubmit}
@@ -126,7 +126,7 @@ class Sidebar extends React.Component {
         return (
             <div className='sidebar'>
                 <div className='sidebar-header'> <Link to={`/`}>
-                    <button className='return-btn'>🡄</button>
+                    <button className='return-btn'>back</button>
                 </Link><h2>Widraw</h2></div>
                 <button className='blue-btn w-100'
                     onClick={this.handleSubmit}
@@ -149,7 +149,7 @@ class Sidebar extends React.Component {
         return (
             <div className='sidebar'>
                 <div className='sidebar-header'> <Link to={`/`}>
-                    <button className='return-btn'>🡄</button>
+                    <button className='return-btn'>back</button>
                 </Link><h2>Transfer</h2></div>
                 <button className='blue-btn w-100'
                     onClick={this.handleSubmit}
@@ -178,7 +178,7 @@ class Sidebar extends React.Component {
         return (
             <div className='sidebar'>
                 <div className='sidebar-header'> <Link to={`/`}>
-                    <button className='return-btn'>🡄</button>
+                    <button className='return-btn'>back</button>
                 </Link><h2>Add Jar</h2></div>
                 <input className={this.canAdd() ? 'input' : 'input warning'} type='text' placeholder='Label?'
                     onChange={this.handleValue}

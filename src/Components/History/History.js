@@ -53,12 +53,13 @@ class History extends React.Component {
         return (
             <div>
                 <div className='sidebar-header'> <Link to={`/`}>
-                    <button className='return-btn'>🡄</button>
+                    <button className='return-btn'>back</button>
                 </Link><h2>History</h2>
                 </div>
                 <input className={true ? 'input' : 'input warning'} type='text' placeholder='search Label'
                     onChange={this.handleValue}
                 />
+                 <div className='table-wrap'>
                 <div className='history'>
                     <div className='table-header'>
                         <div>label</div>
@@ -70,6 +71,7 @@ class History extends React.Component {
                     { this.state.sortedHistoryList.filter(x => x.label.toUpperCase().includes(this.state.search.toUpperCase())).map(x => {
                             return (this.returnHistoryItem(x))
                         })}
+                </div>
                 </div>
             </div>
         );
