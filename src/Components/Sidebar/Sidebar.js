@@ -16,13 +16,13 @@ class Sidebar extends React.Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.location !== prevProps.location) {
-          this.setState({
-            value: '',
-            select: 'default',
-            selectSecond: 'default'
-        });
+            this.setState({
+                value: '',
+                select: 'default',
+                selectSecond: 'default'
+            });
         }
-      }
+    }
 
     handleValue = (e) => {
         this.setState({ value: e.target.value });
@@ -91,10 +91,10 @@ class Sidebar extends React.Component {
                     {this.props.jarList.length > 1 ? <button className="grey-btn">Transfer 🡆</button> : ''}
                 </Link>
                 <Link to={`invest`}>
-                    <button className='green-btn'>Invest 🡅</button>
+                    {this.props.jarList.length > 0 ? <button className='green-btn'>Invest 🡅</button> : ''}
                 </Link>
                 <Link to={`widraw`}>
-                    <button className='red-btn'>Widraw 🡇</button>
+                    {this.props.jarList.length > 0 ? <button className='red-btn'>Widraw 🡇</button> : ''}
                 </Link>
             </div>
         )
@@ -113,7 +113,7 @@ class Sidebar extends React.Component {
                     onChange={this.handleValue}
                 />
                 <select className='input' value={this.state.select} onChange={this.handleSelect}>
-                    <option disabled hidden value='default'>Select</option>
+                    <option disabled hidden value='default'>Select Jar</option>
                     {this.props.jarList && this.props.jarList.map((x, index) => {
                         return (<option value={index} key={`label-${x.id}`}>{x.label}</option>)
                     })}
@@ -137,7 +137,7 @@ class Sidebar extends React.Component {
                     value={this.state.value}
                 />
                 <select className={this.canWidraw() || this.state.select === 'default' ? 'input' : 'input warning'} value={this.state.select} onChange={this.handleSelect}>
-                    <option disabled hidden value='default'>Select</option>
+                    <option disabled hidden value='default'>Select Jar</option>
                     {this.props.jarList && this.props.jarList.map((x, index) => {
                         return (<option value={index} key={`label-${x.id}`}>{x.label}</option>)
                     })}</select>
@@ -160,12 +160,12 @@ class Sidebar extends React.Component {
                     value={this.state.value}
                 />
                 <select className={this.state.select !== this.state.selectSecond || (this.canWidraw() || (this.state.selectSecond === 'default' && this.state.select === 'default')) ? 'input' : 'input warning'} value={this.state.select} onChange={this.handleSelect}>
-                    <option disabled hidden value='default'>Select</option>
+                    <option disabled hidden value='default'>From</option>
                     {this.props.jarList && this.props.jarList.map((x, index) => {
                         return (<option value={index} key={`label-${x.id}`}>{x.label}</option>)
                     })}</select>
                 <select className={this.state.select !== this.state.selectSecond || (this.state.selectSecond !== 'default' || (this.state.selectSecond === 'default' && this.state.select === 'default')) ? 'input' : 'input warning'} value={this.state.selectSecond} onChange={this.handleSelectSecond}>
-                    <option disabled hidden value='default'>Select</option>
+                    <option disabled hidden value='default'>To</option>
                     {this.props.jarList && this.props.jarList.map((x, index) => {
                         return (<option value={index} key={`label-${x.id}`}>{x.label}</option>)
                     })}</select>
