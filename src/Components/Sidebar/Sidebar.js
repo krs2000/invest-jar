@@ -180,7 +180,7 @@ class Sidebar extends React.Component {
                 <div className='sidebar-header'> <Link to={`/`}>
                     <button className='return-btn'>back</button>
                 </Link><h2>Add Jar</h2></div>
-                <input className={this.canAdd() ? 'input' : 'input warning'} type='text' placeholder='Label?'
+                <input className='input' type='text' placeholder='Label?'
                     onChange={this.handleValue}
                     value={this.state.value}
                 />
