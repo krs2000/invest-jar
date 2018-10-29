@@ -1,7 +1,7 @@
 import { Link, withRouter } from 'react-router-dom';
 import React from 'react';
 import './Sidebar.css';
-import { savings_subtract, savings_add, history_add, jar_add, savings_transfer, history_add_multiple } from '../../Actions';
+import { savings_subtract, savings_add, history_add, jar_add, savings_transfer, history_add_multiple,set_currencies } from '../../Actions';
 import { connect } from 'react-redux';
 
 class Sidebar extends React.Component {
@@ -208,11 +208,12 @@ class Sidebar extends React.Component {
 function mapStateToProps(state) {
     return {
         jarList: state.jarList,
-        historyList: state.historyList
+        historyList: state.historyList,
+        currenciesList : state.currenciesList
     };
 }
 
-export default withRouter(connect(mapStateToProps, { savings_transfer, savings_subtract, savings_add, history_add, jar_add, history_add_multiple })(Sidebar));
+export default withRouter(connect(mapStateToProps, { set_currencies,savings_transfer, savings_subtract, savings_add, history_add, jar_add, history_add_multiple })(Sidebar));
 
 
 
