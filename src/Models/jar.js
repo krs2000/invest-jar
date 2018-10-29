@@ -2,11 +2,13 @@ import { v4 } from 'node-uuid';
 
 export class Jar {
     id;
-    label;
     account;
-    constructor(label) {
+    label;
+    currency;
+    constructor(label, currency) {
         this.id = v4();
-        this.label = label;
         this.account = 0;
+        this.label = label;
+        this.currency = currency;
       }
 }

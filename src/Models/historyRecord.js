@@ -1,19 +1,18 @@
-import moment from 'moment'
+import moment from 'moment';
 import { v4 } from 'node-uuid';
+
+
 export class HistoryRecord {
     id;
-    value;
-    label;
-    type;
     date;
-    account;
-    constructor(value, label, transaction, account) {
+    type;
+    value;
+    jar;
+    constructor(transaction, value, jar) {
         this.id = v4();
-        this.label = label;
-        this.account = account;
-        this.transaction = transaction;
         this.date = moment().format("YYYY-MM-DD HH:mm:ss");
+        this.transaction = transaction;
         this.value = value;
-        this.account = account;
+        this.jar = jar;
     }
 }
