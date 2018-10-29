@@ -17,6 +17,11 @@
   cursor: pointer;
 }
 
+.input, .sidebar-header {
+  max-width: 240px;
+  margin: 2% 0 0 2%;
+}
+
 .table-header,
 .table-row {
   display: flex;

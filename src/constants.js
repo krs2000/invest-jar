@@ -1,4 +1,7 @@
 export const SAVINGS_SUBTRACT  = "SAVINGS_SUBTRACT";
 export const SAVINGS_ADD  = "SAVINGS_ADD";
+export const SAVINGS_TRANSFER  = "SAVINGS_TRANSFER";
+export const JAR_ADD  = "JAR_ADD";
 
 export const HISTORY_ADD = "HISTORY_ADD";
+export const HISTORY_ADD_MULTIPLE = "HISTORY_ADD_MULTIPLE";
