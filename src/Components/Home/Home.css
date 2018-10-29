@@ -136,35 +136,12 @@ body {
 
 @media (min-width: 540px) {
   .jar-box {
+    float: left;
     margin: 50px 50px 0 0;
   }
   #main {
     width: calc(100% - 500px);
     margin-left: 400px;
     padding: 50px 80px 0 0;
-  }
-}
-
-.slide {
-  position: absolute;
-  left: -600px;
-  width: 600px;
-  height: 370px;
-  background: blue;
-  -webkit-animation: slide 0.5s forwards;
-  -webkit-animation-delay: 2s;
-  animation: slide 0.5s forwards;
-  animation-delay: 2s;
-}
-
-@-webkit-keyframes slide {
-  100% {
-    left: 0;
-  }
-}
-
-@keyframes slide {
-  100% {
-    left: 0;
   }
 }

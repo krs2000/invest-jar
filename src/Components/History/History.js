@@ -20,8 +20,8 @@ class History extends React.Component {
 
     returnHistoryItem = (x) => {
         return (
-            <div className='table-row' key={`user-${x.id}`}>
-                {/* <div>{x.label}</div> */}
+            <div className='table-row' key={`history-${x.id}`}>
+                <div>{x.label}</div>
                 <div>{x.transaction}</div>
                 <div>{x.date}</div>
                 <div>{x.value}</div>
@@ -53,14 +53,13 @@ class History extends React.Component {
                 </div>
                 <div className='history'>
                     <div className='table-header'>
-                        {/* <div onClick={()=>this.sort()}>label</div> */}
+                        <div onClick={()=>this.sort()}>label</div>
                         <div onClick={()=>this.sortTable('transaction')}>type {this.state.sortedBy === 'transaction' ? this.state.sortedIsAsc ? '⬆' :'⬇' : '⬍' }</div>
                         <div onClick={()=>this.sortTable('date')}>date {this.state.sortedBy === 'date' ? this.state.sortedIsAsc ? '⬆' :'⬇' : '⬍' }</div>
                         <div onClick={()=>this.sortTable('value')}>value {this.state.sortedBy === 'value' ? this.state.sortedIsAsc ? '⬆' :'⬇' : '⬍' }</div>
                         <div onClick={()=>this.sortTable('account')}>saldo {this.state.sortedBy === 'account' ? this.state.sortedIsAsc ? '⬆' :'⬇' : '⬍' }</div>
                     </div>
-                    {
-                        this.state.sortedHistoryList.map(item => {
+                    { this.state.sortedHistoryList.map(item => {
                             return (this.returnHistoryItem(item))
                         })}
                 </div>
