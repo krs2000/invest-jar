@@ -77,6 +77,8 @@ export const history_add_multiple = (jars, transaction, value, historyList) => {
 
 export const set_currencies = () => {
 	const action = {
+		id: v4(),
+		type: SET_CURRENCIES
 	};
 	return action;
 };
