@@ -8,11 +8,12 @@ import { jars_update } from '../../Actions';
 
 class Home extends Component {
 
-  setDefault = (x) => {
-    this.props.jarList.forEach(x => {
+  toggleDefault = (x) => {
+    this.props.jarList.forEach(jar => {
+      if(jar.id !== x.id)
       x.isDefault = false;
     });
-    x.isDefault = true;
+    x.isDefault ? x.isDefault = false : x.isDefault = true;
     this.props.jars_update(this.props.jarList)
   }
 
@@ -21,7 +22,7 @@ class Home extends Component {
       <div className='jar-box' key={`jar-${x.id}`}>
         {x.isDefault ? <div className='default-star'>🟊</div> : ''}
         <button className='properties-btn'
-          onClick={() => this.setDefault(x)}
+          onClick={() => this.toggleDefault(x)}
         >🟊</button>
         <div className='jar-top'></div>
         <div className='jar-middle'></div>
