@@ -3,12 +3,13 @@ import { v4 } from 'node-uuid';
 
 
 //JARS 
-export const jar_add = (jarList, label) => {
+export const jar_add = (jarList, label, currency) => {
 	const action = {
 		type: JAR_ADD,
 		id: v4(),
 		label,
-		jarList
+		jarList,
+		currency
 	};
 	return action;
 };
