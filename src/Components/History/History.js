@@ -22,11 +22,11 @@ class History extends React.Component {
     returnHistoryItem = (x) => {
         return (
             <div className='table-row' key={`history-${x.id}`}>
-                <div>{x.label}</div>
+                <div>{x.jar.label}</div>
                 <div>{x.transaction}</div>
                 <div>{x.date}</div>
-                <div>{x.value}</div>
-                <div>{x.account}</div>
+                <div>{x.value}{x.jar.currency.sign}</div>
+                <div>{x.jar.account}{x.jar.currency.sign}</div>
             </div>
         )
     }
@@ -68,7 +68,7 @@ class History extends React.Component {
                         <div onClick={()=>this.sortTable('value')}>value {this.state.sortedBy === 'value' ? this.state.sortedIsAsc ? '⬆' :'⬇' : '⬍' }</div>
                         <div onClick={()=>this.sortTable('account')}>saldo {this.state.sortedBy === 'account' ? this.state.sortedIsAsc ? '⬆' :'⬇' : '⬍' }</div>
                     </div>
-                    { this.state.sortedHistoryList.filter(x => x.label.toUpperCase().includes(this.state.search.toUpperCase())).map(x => {
+                    { this.state.sortedHistoryList && this.state.sortedHistoryList.filter(x => x.jar.label.toUpperCase().includes(this.state.search.toUpperCase())).map(x => {
                             return (this.returnHistoryItem(x))
                         })}
                 </div>

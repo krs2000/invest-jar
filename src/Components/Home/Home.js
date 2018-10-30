@@ -25,7 +25,7 @@ class Home extends Component {
         <div className='jar-middle'></div>
         <div className='jar-bottom'>
         <div className='label'>{x.label}</div>
-         <div className='value'>{x.account}</div>
+         <div className='value'>{x.account} {x.currency.sign}</div>
         </div>
         <div>
         </div>

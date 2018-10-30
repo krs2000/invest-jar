@@ -1,20 +1,24 @@
-import { SAVINGS_TRANSFER, SAVINGS_SUBTRACT, SAVINGS_ADD, HISTORY_ADD, JAR_ADD, HISTORY_ADD_MULTIPLE } from "../constants";
+import { SAVINGS_TRANSFER, SAVINGS_SUBTRACT, SAVINGS_ADD, HISTORY_ADD, JAR_ADD, HISTORY_ADD_MULTIPLE, SET_CURRENCIES } from "../constants";
 import { v4 } from 'node-uuid';
 
-export const jar_add = (jarList, label) => {
+
+//JARS 
+export const jar_add = (jarList, label, currency) => {
 	const action = {
 		type: JAR_ADD,
 		id: v4(),
 		label,
-		jarList
+		jarList,
+		currency
 	};
 	return action;
 };
 
+//SAVINGS
 export const savings_add = (jarId, jarList, value) => {
 	const action = {
-		type: SAVINGS_ADD,
 		id: v4(),
+		type: SAVINGS_ADD,
 		value,
 		jarList,
 		jarId
@@ -24,8 +28,8 @@ export const savings_add = (jarId, jarList, value) => {
 
 export const savings_subtract = (jarId, jarList, value) => {
 	const action = {
-		type: SAVINGS_SUBTRACT,
 		id: v4(),
+		type: SAVINGS_SUBTRACT,
 		value,
 		jarList,
 		jarId
@@ -35,8 +39,8 @@ export const savings_subtract = (jarId, jarList, value) => {
 
 export const savings_transfer = (jarId, secondJarId, jarList, value) => {
 	const action = {
-		type: SAVINGS_TRANSFER,
 		id: v4(),
+		type: SAVINGS_TRANSFER,
 		value,
 		jarList,
 		jarId,
@@ -45,12 +49,13 @@ export const savings_transfer = (jarId, secondJarId, jarList, value) => {
 	return action;
 };
 
+//HISTORY
 export const history_add = (jar, transaction, value, historyList) => {
 	const action = {
-		type: HISTORY_ADD,
 		id: v4(),
+		type: HISTORY_ADD,
 		transaction,
-		jar,
+		jar, 
 		value,
 		historyList
 	};
@@ -59,12 +64,22 @@ export const history_add = (jar, transaction, value, historyList) => {
 
 export const history_add_multiple = (jars, transaction, value, historyList) => {
 	const action = {
-		type: HISTORY_ADD_MULTIPLE,
 		id: v4(),
+		type: HISTORY_ADD_MULTIPLE,
 		transaction,
 		jars,
 		value,
 		historyList
+	};
+	return action;
+};
+
+//CURRENCIES
+
+export const set_currencies = () => {
+	const action = {
+		id: v4(),
+		type: SET_CURRENCIES
 	};
 	return action;
 };

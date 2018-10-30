@@ -8,19 +8,17 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case HISTORY_ADD:
             newState = [new HistoryRecord(
-                action.value,
-                action.jar.label,
                 action.transaction,
-                action.jar.account)].concat(action.historyList);
-
+                action.value,
+                action.jar)].concat(action.historyList);
             return newState;
             case HISTORY_ADD_MULTIPLE:
-            const newItems = [];
-            action.jars.forEach((x , index)=> newItems.push(new HistoryRecord(
-                action.value,
-                x.label,
+            const newItems = [];;
+            action.jars.forEach((jar , index)=> newItems.push(new HistoryRecord(
                 index === 0 ? 'Transfer Inbound' : 'Transfer Outbound',
-                x.account)))
+                action.value,
+                jar,
+              )))
             newState = newItems.concat(action.historyList);
 
             return newState;
