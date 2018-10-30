@@ -30,6 +30,15 @@ h2 {
     float: right;
 }
 
+.plus-btn {
+    @include btn-color($grey);
+    width: 48px !important;
+    height: 48px;
+    border-radius: 50%;
+    z-index: 1;
+    float:right;
+}
+
 .input {
     margin-top: 2%;
     border: 2px $dark solid;
@@ -52,6 +61,14 @@ h2 {
 .sidebar-header {
     @extend %flex-center;
     width: 100%
+}
+
+.option-b {
+    width: 68% !important;
+}
+.option-percent {
+    width: 30% !important;
+    margin-left:2%;
 }
 
 @media (min-width: 768px) {

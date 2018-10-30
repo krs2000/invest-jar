@@ -22,14 +22,14 @@ export default (state = initialState, action) => {
             return newState;
         case SAVINGS_TRANSFER:
             newState.forEach(x => {
-                if (x.id === action.jarId)
+                if (x.id === action.jars[0].id)
                     x.account -= action.value
-                if (x.id === action.secondJarId)
+                else
                     x.account += action.value
             })
             return newState;
         case JAR_ADD:
-            newState = newState.concat(new Jar(action.label, action.currency))
+            newState = newState.concat(new Jar(action.label, action.currency, false))
             return newState;
         case JARS_UPDATE:
             return newState;

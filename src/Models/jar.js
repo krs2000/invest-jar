@@ -6,11 +6,11 @@ export class Jar {
     label;
     currency;
     isDefault;
-    constructor(label, currency) {
+    constructor(label, currency, isDefault) {
         this.id = v4();
         this.account = 0;
         this.label = label;
         this.currency = currency;
-        this.isDefault = false;
-      }
+        this.isDefault = isDefault;
+    }
 }

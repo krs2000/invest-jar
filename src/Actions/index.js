@@ -1,4 +1,4 @@
-import { JARS_UPDATE,SAVINGS_TRANSFER, SAVINGS_SUBTRACT, SAVINGS_ADD, HISTORY_ADD, JAR_ADD, HISTORY_ADD_MULTIPLE, SET_CURRENCIES } from "../constants";
+import { JARS_UPDATE, SAVINGS_TRANSFER, SAVINGS_SUBTRACT, SAVINGS_ADD, HISTORY_ADD, JAR_ADD, HISTORY_ADD_MULTIPLE, SET_CURRENCIES } from "../constants";
 import { v4 } from 'node-uuid';
 
 
@@ -46,14 +46,13 @@ export const savings_subtract = (jarId, jarList, value) => {
 	return action;
 };
 
-export const savings_transfer = (jarId, secondJarId, jarList, value) => {
+export const savings_transfer = (jars, jarList, value) => {
 	const action = {
 		id: v4(),
 		type: SAVINGS_TRANSFER,
 		value,
 		jarList,
-		jarId,
-		secondJarId
+		jars
 	};
 	return action;
 };
@@ -64,7 +63,7 @@ export const history_add = (jar, transaction, value, historyList) => {
 		id: v4(),
 		type: HISTORY_ADD,
 		transaction,
-		jar, 
+		jar,
 		value,
 		historyList
 	};

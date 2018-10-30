@@ -4,7 +4,7 @@
   align-items: center;
 }
 
-.green-btn, .blue-btn, .red-btn, .grey-btn, .return-btn {
+.green-btn, .blue-btn, .red-btn, .grey-btn, .return-btn, .plus-btn {
   border: 0;
   width: 45%;
   margin: 2% 0 0 2%;
@@ -16,15 +16,15 @@
   color: #fff;
 }
 
-.green-btn:focus, .blue-btn:focus, .red-btn:focus, .grey-btn:focus, .return-btn:focus {
+.green-btn:focus, .blue-btn:focus, .red-btn:focus, .grey-btn:focus, .return-btn:focus, .plus-btn:focus {
   outline: none;
 }
 
-.green-btn:hover, .blue-btn:hover, .red-btn:hover, .grey-btn:hover, .return-btn:hover {
+.green-btn:hover, .blue-btn:hover, .red-btn:hover, .grey-btn:hover, .return-btn:hover, .plus-btn:hover {
   opacity: 1;
 }
 
-.w-100.green-btn, .w-100.blue-btn, .w-100.red-btn, .w-100.grey-btn, .w-100.return-btn {
+.w-100.green-btn, .w-100.blue-btn, .w-100.red-btn, .w-100.grey-btn, .w-100.return-btn, .w-100.plus-btn {
   width: 100%;
   margin: 2% 0 0 0;
 }
@@ -79,6 +79,19 @@ h2 {
   background: #ff4140;
 }
 
+.plus-btn {
+  background: #d9e1e8;
+  width: 48px !important;
+  height: 48px;
+  border-radius: 50%;
+  z-index: 1;
+  float: right;
+}
+
+.plus-btn:hover {
+  background: #b9c8d5;
+}
+
 .input {
   margin-top: 2%;
   border: 2px #34314c solid;
@@ -104,6 +117,15 @@ h2 {
   width: 100%;
 }
 
+.option-b {
+  width: 68% !important;
+}
+
+.option-percent {
+  width: 30% !important;
+  margin-left: 2%;
+}
+
 @media (min-width: 768px) {
   .sidebar {
     width: 250px;
@@ -114,7 +136,7 @@ h2 {
     font-weight: 700;
     position: fixed;
   }
-  .green-btn, .blue-btn, .red-btn, .grey-btn, .return-btn,
+  .green-btn, .blue-btn, .red-btn, .grey-btn, .return-btn, .plus-btn,
   label,
   .sidebar-header,
   .input {
