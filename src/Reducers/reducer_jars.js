@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
             })
             return newState;
         case JAR_ADD:
-            newState = newState.concat(new Jar(action.label))
+            newState = newState.concat(new Jar(action.label, action.currency))
             return newState;
         default:
             return state;
