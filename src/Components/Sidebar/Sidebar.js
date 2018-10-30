@@ -53,7 +53,7 @@ canWidraw = () => {
 }
 
 canAdd = () => {
-    return this.state.value && this.state.optionA ? true : false
+    return this.state.value ? true : false
 }
 
 canTransfer = () => {
