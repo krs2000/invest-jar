@@ -1,4 +1,4 @@
-import { SAVINGS_TRANSFER, SAVINGS_SUBTRACT, SAVINGS_ADD, HISTORY_ADD, JAR_ADD, HISTORY_ADD_MULTIPLE, SET_CURRENCIES } from "../constants";
+import { JARS_UPDATE,SAVINGS_TRANSFER, SAVINGS_SUBTRACT, SAVINGS_ADD, HISTORY_ADD, JAR_ADD, HISTORY_ADD_MULTIPLE, SET_CURRENCIES } from "../constants";
 import { v4 } from 'node-uuid';
 
 
@@ -10,6 +10,15 @@ export const jar_add = (jarList, label, currency) => {
 		label,
 		jarList,
 		currency
+	};
+	return action;
+};
+
+export const jars_update = (jarList) => {
+	const action = {
+		type: JARS_UPDATE,
+		id: v4(),
+		jarList
 	};
 	return action;
 };

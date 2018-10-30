@@ -1,31 +1,33 @@
 import React, { Component } from 'react';
 import './Home.css';
 import { connect } from 'react-redux';
-// import { Link } from 'react-router-dom';
 import Sidebar from '../Sidebar/Sidebar'
+import { jars_update } from '../../Actions';
 
 
 
 class Home extends Component {
 
-
-  componentDidUpdate() {
-    // console.log(this.props)
-  }
-  componentDidMount() {
-    // console.log(this.props)
+  setDefault = (x) => {
+    this.props.jarList.forEach(x => {
+      x.isDefault = false;
+    });
+    x.isDefault = true;
+    this.props.jars_update(this.props.jarList)
   }
 
   returnJar = (x) => {
     return (
       <div className='jar-box' key={`jar-${x.id}`}>
-        {/* <div className='default-star'>🟊</div> */}
-        {/* <button className='properties-btn'>☰</button> */}
+        {x.isDefault ? <div className='default-star'>🟊</div> : ''}
+        <button className='properties-btn'
+          onClick={() => this.setDefault(x)}
+        >🟊</button>
         <div className='jar-top'></div>
         <div className='jar-middle'></div>
         <div className='jar-bottom'>
-        <div className='label'>{x.label}</div>
-         <div className='value'>{x.account} {x.currency.sign}</div>
+          <div className='label'>{x.label}</div>
+          <div className='value'>{x.account} {x.currency.sign}</div>
         </div>
         <div>
         </div>
@@ -53,4 +55,4 @@ function mapStateToProps(state) {
     jarList: state.jarList
   };
 }
-export default connect(mapStateToProps, {})(Home);
+export default connect(mapStateToProps, { jars_update })(Home);

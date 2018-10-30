@@ -1,5 +1,7 @@
 //JAR
 export const JAR_ADD = "JAR_ADD";
+export const JARS_UPDATE = "JARS_UPDATE";
+
 //SAVINGS
 export const SAVINGS_SUBTRACT = "SAVINGS_SUBTRACT";
 export const SAVINGS_ADD = "SAVINGS_ADD";
