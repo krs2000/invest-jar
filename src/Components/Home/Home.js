@@ -9,12 +9,17 @@ import { jars_update } from '../../Actions';
 class Home extends Component {
 
   toggleDefault = (x) => {
+
     this.props.jarList.forEach(jar => {
-      if(jar.id !== x.id)
-      x.isDefault = false;
+      if (jar.id !== x.id)
+      jar.isDefault = false;
+      else
+      jar.isDefault =  !jar.isDefault;
     });
-    x.isDefault ? x.isDefault = false : x.isDefault = true;
-    this.props.jars_update(this.props.jarList)
+ 
+
+
+    this.props.jars_update(  this.props.jarList)
   }
 
   returnJar = (x) => {
