@@ -70,11 +70,10 @@ export const history_add = (jar, transaction, value, historyList) => {
 	return action;
 };
 
-export const history_add_multiple = (jars, transaction, value, historyList) => {
+export const history_add_multiple = (jars, value, historyList) => {
 	const action = {
 		id: v4(),
 		type: HISTORY_ADD_MULTIPLE,
-		transaction,
 		jars,
 		value,
 		historyList

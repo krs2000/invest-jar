@@ -13,11 +13,12 @@ export default (state = initialState, action) => {
                 action.jar)].concat(action.historyList);
             return newState;
             case HISTORY_ADD_MULTIPLE:
-            const newItems = [];;
-            action.jars.forEach((jar , index)=> newItems.push(new HistoryRecord(
-                index === 0 ? 'Transfer Inbound' : 'Transfer Outbound',
-                action.value,
-                jar,
+            const newItems = [];
+            console.log(action.jars)
+            action.jars.forEach((x,index)=> newItems.push(new HistoryRecord(
+               (index === 0 ? 'Transfer Outbound' : 'Transfer Inbound'),
+                action.value * x.percent * 0.01,
+                x.jar
               )))
             newState = newItems.concat(action.historyList);
 

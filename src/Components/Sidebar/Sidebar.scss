@@ -64,14 +64,32 @@ h2 {
 }
 
 .option-b {
-    width: 68% !important;
+    width: 78% !important;
 }
 .option-percent {
-    width: 30% !important;
+    width: 20% !important;
     margin-left:2%;
+    position:relative;
 }
+// .option-percent::after{
+//     content: "hi";
+//     cursor: pointer;
+//     position:absolute;
+//     width: 10px;
+//     height: 10px;;
+//     background-color: red
+// }
 
 @media (min-width: 768px) {
+
+    .option-b {
+        width: 58% !important;
+    }
+    .option-percent {
+        width: 40% !important;
+        margin-left:2%;
+        position:relative;
+    }
     
     .sidebar {
         width: 250px;

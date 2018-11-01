@@ -21,11 +21,15 @@ export default (state = initialState, action) => {
             })
             return newState;
         case SAVINGS_TRANSFER:
-            newState.forEach(x => {
-                if (x.id === action.jars[0].id)
+            newState.forEach((x) => {
+                if (x.id === action.jars[0].jar.id)
                     x.account -= action.value
-                else
-                    x.account += action.value
+                else {
+                    action.jars.forEach(xx => {
+                        if (x.id === xx.jar.id)
+                            x.account += action.value * xx.percent * 0.01
+                    })
+                }
             })
             return newState;
         case JAR_ADD:
