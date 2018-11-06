@@ -5,12 +5,11 @@ const dollar = new Currency(
     'dollar', '$')
 const euro = new Currency(
     'euro', '€')
-const bitcoin = new Currency(
-    'bitcoin', '₿ ')
-const etherum = new Currency(
-    'etherum', 'Ξ')
+const pound = new Currency(
+    'bitcoin', '£')
 
-let initialState = [dollar, euro, bitcoin, etherum];
+
+let initialState = [dollar, euro, pound];
 
 export default (state = initialState, action) => {
     // let newState = null;
