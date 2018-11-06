@@ -298,7 +298,6 @@ class Sidebar extends React.Component {
                                 min='0'
                                 onKeyPress={(e) => e.preventDefault()}
                             />
-                        <label >%</label>
                         </div>)
                 })}
                 <div className='plus-row'> {this.state.optionA && this.isDefaultJar() && this.state.percentSum < 100 && (100 - this.state.percentSum) + '% to default jar'}
