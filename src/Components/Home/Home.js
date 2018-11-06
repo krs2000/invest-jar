@@ -17,8 +17,6 @@ class Home extends Component {
       jar.isDefault =  !jar.isDefault;
     });
  
-
-
     this.props.jars_update(  this.props.jarList)
   }
 

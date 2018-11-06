@@ -9,14 +9,15 @@ class History extends React.Component {
         super(props);
         this.state = {
             sortedHistoryList: [],
-            sortedBy: 'date',
-            sortedIsAsc: false,
+            sortedBy: '',
+            sortedIsAsc: true,
             search: ''
         };
     }
 
     componentWillMount() {
         this.setState({ sortedHistoryList: this.props.historyList })
+
     }
 
     returnHistoryItem = (x) => {

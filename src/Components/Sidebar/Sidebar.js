@@ -1,7 +1,7 @@
 import { Link, withRouter } from 'react-router-dom';
 import React from 'react';
 import './Sidebar.css';
-import { savings_subtract, savings_add, history_add, jar_add, savings_transfer, history_add_multiple, set_currencies } from '../../Actions';
+import { savings_subtract, savings_add, history_add, jar_add, savings_transfer, history_add_percent, set_currencies } from '../../Actions';
 import { connect } from 'react-redux';
 import { Jar } from '../../Models/jar';
 
@@ -12,7 +12,8 @@ class Sidebar extends React.Component {
             value: '',
             optionA: '',
             optionB: '',
-            isError: false
+            isError: false,
+            percentSum: 100
         };
     }
 
@@ -23,8 +24,19 @@ class Sidebar extends React.Component {
                 optionA: '',
                 optionB: '',
                 isError: false,
+                percentSum: 100
             });
         }
+    }
+
+    isDefaultJar = () => {
+        let defaultJar;
+        this.props.jarList.forEach(x => {
+            if (x.isDefault) {
+                defaultJar = x;
+            }
+        })
+        return defaultJar;
     }
 
     handleInput = (e) => {
@@ -32,16 +44,20 @@ class Sidebar extends React.Component {
     }
 
     handlePercentB = (e, index) => {
-        let percentSum =0 ;
-        this.state.optionB.forEach( x => percentSum += x.percent )
-        const newOptionB = this.state.optionB  
-        if( percentSum < 100){
-        newOptionB[index].percent = Number(e.target.value);
-        this.setState({ optionB: newOptionB });
-        }else{
-        newOptionB[index].percent = Number(e.target.value)-1;
-        this.setState({ optionB: newOptionB });
+        let percentSum = 0;
+        this.state.optionB.forEach(x => percentSum += x.percent)
+        const newOptionB = this.state.optionB
+
+        if (percentSum < 100) {
+            newOptionB[index].percent = Number(e.target.value);
+            this.setState({ optionB: newOptionB });
+        } else {
+            newOptionB[index].percent = Number(e.target.value) - 1;
+            this.setState({ optionB: newOptionB });
         }
+        percentSum = 0;
+        this.state.optionB.forEach(x => percentSum += x.percent)
+        this.setState({ percentSum });
     }
 
     handleOptionA = (e) => {
@@ -85,12 +101,19 @@ class Sidebar extends React.Component {
             this.props.jar_add(this.props.jarList, this.state.value, this.props.currencyList[this.state.optionA])
             this.props.history.push('/')
         } else if (this.props.activeLink === '/transfer' && this.canTransfer()) {
-            let options = [{
-                jar: this.state.optionA,
-                percent: 100
-            }].concat(this.state.optionB)
+            let defaultJar = [];
+            if (this.isDefaultJar() && this.state.percentSum !== 100) {
+                defaultJar = [{
+                    jar: this.isDefaultJar(),
+                    percent: 100 - this.state.percentSum
+                }]
+            }
+            let options = this.state.optionB.concat(defaultJar)
+            const optionA = JSON.parse(JSON.stringify(this.state.optionA))
+            this.props.savings_subtract(this.state.optionA.id, this.props.jarList, Number(this.state.value))
             this.props.savings_transfer(options, this.props.jarList, Number(this.state.value))
-            this.props.history_add_multiple(options, Number(this.state.value), this.props.historyList)
+            this.props.history_add_percent(optionA, options, Number(this.state.value), this.props.historyList)
+
             this.props.history.push('/')
         } else {
             this.setState({ isError: true })
@@ -104,6 +127,14 @@ class Sidebar extends React.Component {
         });
     }
 
+    addButtonVisible = () => {
+        let isVisible = true;
+        this.state.optionB.forEach(x => x.jar.label ? null : isVisible = false);
+        if (this.state.optionB.length + 1 === this.props.jarList.filter((x) => x.currency.id === this.state.optionA.currency.id).length)
+            isVisible = false;
+        return isVisible;
+    }
+
     //CAN GUARDS
     canWidraw = () => {
         if (this.state.optionA && this.state.value)
@@ -113,22 +144,21 @@ class Sidebar extends React.Component {
     }
 
     canAdd = () => {
-        return this.state.value ? true : false
+        return this.state.value && this.state.optionA ? true : false
     }
 
     canTransfer = () => {
-        let block =false;
-        this.state.optionB.forEach(x => !x.jar.label ? block = true : '')
+        if (this.state.value <= this.state.optionA.account && (this.state.percentSum === 100 || this.isDefaultJar()) ? true : false) {
+            let block = false;
+            this.state.optionB.forEach(x => !x.jar.label ? block = true : '')
 
-        return (this.state.value && this.state.optionA && !block) ? true : false
+            return (!block)
+        }
     }
 
     canInvest = () => {
         return (this.state.optionA && this.state.value) ? true : false
     }
-
-
-
 
     returnInvestSidebar = () => {
         return (
@@ -209,6 +239,19 @@ class Sidebar extends React.Component {
         )
     }
 
+    filter = (id, i) => {
+        const arr = [];
+        this.state.optionB.forEach((x, index) => {
+            if (index < i) {
+                arr.push(x.jar.id)
+            }
+        })
+        if (!arr.includes(id))
+            return id
+    }
+
+
+
     returnTransferSidebar = () => {
         return (
             <div className='sidebar'>
@@ -233,34 +276,34 @@ class Sidebar extends React.Component {
                         })}</select>
                 {this.state.optionA && this.state.optionB.map((x, index) => {
                     return (
-                        <div key={`optionB-${index}`}>
+                        <div key={`optionB-${index}`} >
                             <select className={!this.state.isError ? 'input option-b' : 'input warning option-b'}
                                 value={this.state.optionB[index].jar.label ? this.state.optionB[index].jar.id : ''}
                                 onChange={(e) => this.handleOptionB(e, index)}>
                                 <option disabled hidden value=''>To</option>
-                                {[]
-                                    .concat(this.props.jarList)
-                                    .filter((x) => x.currency.id === this.state.optionA.currency.id && x.id !== this.state.optionA.id)
-                                    .map((x) => {
+                                {this.props.jarList
+                                    .filter((x) => x.currency.id === this.state.optionA.currency.id && x.id !== this.state.optionA.id && this.filter(x.id, index))
+                                    .map(x => {
                                         return (<option value={x.id} key={`label-${x.id}`}>{x.label}</option>)
                                     })
 
                                 }
                             </select>
-                            <input
+                          <input
                                 className={!this.state.isError ? 'input option-percent' : 'input warning  option-percent'}
                                 type='number'
                                 value={this.state.optionB[index].percent}
                                 placeholder='%'
                                 onChange={(e) => this.handlePercentB(e, index)}
                                 min='0'
-                                onKeyPress = {(e) => e.preventDefault()}
-
+                                onKeyPress={(e) => e.preventDefault()}
                             />
+                        <label >%</label>
                         </div>)
                 })}
-                {this.state.optionA && <button className='plus-btn'
-                    onClick={this.addOption}>+</button>}
+                <div className='plus-row'> {this.state.optionA && this.isDefaultJar() && this.state.percentSum < 100 && (100 - this.state.percentSum) + '% to default jar'}
+                    {this.state.optionA && this.addButtonVisible() && <button className='plus-btn'
+                        onClick={this.addOption}>+</button>}</div>
             </div>
         )
     }
@@ -304,7 +347,7 @@ function mapStateToProps(state) {
     };
 }
 
-export default withRouter(connect(mapStateToProps, { set_currencies, savings_transfer, savings_subtract, savings_add, history_add, jar_add, history_add_multiple })(Sidebar));
+export default withRouter(connect(mapStateToProps, { set_currencies, savings_transfer, savings_subtract, savings_add, history_add, jar_add, history_add_percent })(Sidebar));
 
 
 const returnSidebar = (jarList) => {

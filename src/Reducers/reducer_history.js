@@ -1,26 +1,39 @@
 import { HistoryRecord } from '../Models/historyRecord'
-import { HISTORY_ADD_MULTIPLE, HISTORY_ADD } from "../constants";
+import { HISTORY_ADD_PERCENT, HISTORY_ADD } from "../constants";
 
 let initialState = [];
 
+
+
+
+
 export default (state = initialState, action) => {
-    let newState = null;
+    let newState = [].concat(action.historyList);
     switch (action.type) {
         case HISTORY_ADD:
-            newState = [new HistoryRecord(
+            newState = newState.concat([new HistoryRecord(
                 action.transaction,
                 action.value,
-                action.jar)].concat(action.historyList);
+                action.jar
+            )]);
             return newState;
-            case HISTORY_ADD_MULTIPLE:
-            const newItems = [];
-            console.log(action.jars)
-            action.jars.forEach((x,index)=> newItems.push(new HistoryRecord(
-               (index === 0 ? 'Transfer Outbound' : 'Transfer Inbound'),
-                action.value * x.percent * 0.01,
-                x.jar
-              )))
-            newState = newItems.concat(action.historyList);
+        case HISTORY_ADD_PERCENT:
+            action.jar.account -= action.value;
+            newState = [new HistoryRecord(
+                'Transfer Outband',
+                action.value,
+                action.jar 
+            )].concat(newState)
+
+            action.jarsOption.forEach(x => {
+                newState =
+                    [new HistoryRecord(
+                        'Transfer Inbound',
+                        action.value * x.percent * 0.01,
+                        x.jar)].concat(newState)
+            })
+
+
 
             return newState;
         default:
