@@ -18,6 +18,9 @@
         @extend %flex-center;
         min-height: 40px;
         width: 20%;
+        div{
+            display:flex !important;
+        }
     }
 }
 

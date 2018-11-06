@@ -4,6 +4,8 @@ import './Sidebar.css';
 import { savings_subtract, savings_add, history_add, jar_add, savings_transfer, history_add_percent, set_currencies } from '../../Actions';
 import { connect } from 'react-redux';
 import { Jar } from '../../Models/jar';
+import Icon from 'react-icons-kit';
+import { boldLeft, archive,withCircleRight,withCircleDown,withCircleUp,withPlus } from 'react-icons-kit/entypo/'
 
 class Sidebar extends React.Component {
     constructor(props) {
@@ -314,7 +316,7 @@ class Sidebar extends React.Component {
         return (
             <div>
                 <div className='sidebar-header'> <Link to={`/`}>
-                    <button className='return-btn'>back</button>
+                    <button className='return-btn'> <Icon icon={boldLeft} /> back</button>
                 </Link><h2>{header}</h2></div>
                 <button className='blue-btn w-100'
                     onClick={this.handleSubmit}
@@ -353,19 +355,19 @@ const returnSidebar = (jarList) => {
     return (
         <div className='sidebar'>
             <Link to={`add`}>
-                <button className="grey-btn">Add Jar</button>
+                <button className="grey-btn"> <Icon icon={withPlus} size={18}/><span> Add Jar</span></button>
             </Link>
             <Link to={`history`}>
-                <button className='grey-btn'>History</button>
+                <button className='grey-btn'> <Icon icon={archive} size={18}/><span>  History</span></button>
             </Link>
             <Link to={`transfer`}>
-                {jarList.length > 1 ? <button className="grey-btn">Transfer</button> : ''}
+                {jarList.length > 1 ? <button className="grey-btn"> <Icon icon={withCircleRight} size={18}/><span>  Transfer</span></button> : ''}
             </Link>
             <Link to={`invest`}>
-                {jarList.length > 0 ? <button className='green-btn'>Invest</button> : ''}
+                {jarList.length > 0 ? <button className='green-btn'> <Icon icon={withCircleUp} size={18}/><span>  Invest</span></button> : ''}
             </Link>
             <Link to={`widraw`}>
-                {jarList.length > 0 ? <button className='red-btn'>Widraw</button> : ''}
+                {jarList.length > 0 ? <button className='red-btn'> <Icon icon={withCircleDown} size={18}/><span>  Widraw</span></button> : ''}
             </Link>
         </div>
     )

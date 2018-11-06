@@ -3,7 +3,8 @@ import './Home.css';
 import { connect } from 'react-redux';
 import Sidebar from '../Sidebar/Sidebar'
 import { jars_update } from '../../Actions';
-
+import Icon from 'react-icons-kit';
+import { star } from 'react-icons-kit/entypo/'
 
 
 class Home extends Component {
@@ -23,10 +24,10 @@ class Home extends Component {
   returnJar = (x) => {
     return (
       <div className='jar-box' key={`jar-${x.id}`}>
-        {x.isDefault ? <div className='default-star'>🟊</div> : ''}
+        {x.isDefault ? <div className='default-star'> <Icon icon={star} /></div> : ''}
         <button className='properties-btn'
           onClick={() => this.toggleDefault(x)}
-        >🟊</button>
+        ><Icon icon={star} /></button>
         <div className='jar-top'></div>
         <div className='jar-middle'></div>
         <div className='jar-bottom'>

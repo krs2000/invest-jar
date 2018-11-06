@@ -28,6 +28,11 @@
   width: 20%;
 }
 
+.table-header div div,
+.table-row div div {
+  display: flex !important;
+}
+
 .table-wrap {
   margin-top: 2%;
   overflow-x: scroll;
