@@ -126,11 +126,11 @@ h2 {
 }
 
 .option-b {
-  width: 78% !important;
+  width: 68% !important;
 }
 
 .option-percent {
-  width: 20% !important;
+  width: 30% !important;
   margin-left: 2%;
 }
 
@@ -142,7 +142,7 @@ h2 {
   content: "%";
   position: absolute;
   top: 0;
-  right: 30px;
+  right: 10px;
 }
 
 @media (min-width: 768px) {
