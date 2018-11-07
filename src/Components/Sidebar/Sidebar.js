@@ -5,7 +5,7 @@ import { savings_subtract, savings_add, history_add, jar_add, savings_transfer, 
 import { connect } from 'react-redux';
 import { Jar } from '../../Models/jar';
 import Icon from 'react-icons-kit';
-import { boldLeft, archive,withCircleRight,withCircleDown,withCircleUp,withPlus } from 'react-icons-kit/entypo/'
+import { boldLeft, archive, withCircleRight, withCircleDown, withCircleUp, withPlus } from 'react-icons-kit/entypo/'
 
 class Sidebar extends React.Component {
     constructor(props) {
@@ -31,7 +31,7 @@ class Sidebar extends React.Component {
         }
     }
 
-    isDefaultJar = () => {
+    returnDefaultJar = () => {
         let defaultJar;
         this.props.jarList.forEach(x => {
             if (x.isDefault) {
@@ -46,20 +46,22 @@ class Sidebar extends React.Component {
     }
 
     handlePercentB = (e, index) => {
-        let percentSum = 0;
-        this.state.optionB.forEach(x => percentSum += x.percent)
-        const newOptionB = this.state.optionB
+        if ((!isNaN(parseFloat(e.target.value)) && isFinite(e.target.value) && e.target.value >= 0 && e.target.value <= 100) || e.target.value === '') {
+            let percentSum = 0;
+            this.state.optionB.forEach(x => percentSum += x.percent)
+            const newOptionB = this.state.optionB
 
-        if (percentSum < 100) {
-            newOptionB[index].percent = Number(e.target.value);
-            this.setState({ optionB: newOptionB });
-        } else {
-            newOptionB[index].percent = Number(e.target.value) - 1;
-            this.setState({ optionB: newOptionB });
+            if (percentSum <= 100) {
+                newOptionB[index].percent = Number(e.target.value);
+                this.setState({ optionB: newOptionB });
+            } else {
+                newOptionB[index].percent = 100 - percentSum +  this.state.optionB[index].percent;
+                this.setState({ optionB: newOptionB });
+            }
+            percentSum = 0;
+            this.state.optionB.forEach(x => percentSum += x.percent)
+            this.setState({ percentSum });
         }
-        percentSum = 0;
-        this.state.optionB.forEach(x => percentSum += x.percent)
-        this.setState({ percentSum });
     }
 
     handleOptionA = (e) => {
@@ -104,9 +106,9 @@ class Sidebar extends React.Component {
             this.props.history.push('/')
         } else if (this.props.activeLink === '/transfer' && this.canTransfer()) {
             let defaultJar = [];
-            if (this.isDefaultJar() && this.state.percentSum !== 100) {
+            if (this.returnDefaultJar() && this.state.percentSum !== 100) {
                 defaultJar = [{
-                    jar: this.isDefaultJar(),
+                    jar: this.returnDefaultJar(),
                     percent: 100 - this.state.percentSum
                 }]
             }
@@ -150,7 +152,7 @@ class Sidebar extends React.Component {
     }
 
     canTransfer = () => {
-        if (this.state.value <= this.state.optionA.account && (this.state.percentSum === 100 || this.isDefaultJar()) ? true : false) {
+        if (this.state.value <= this.state.optionA.account && (this.state.percentSum === 100 || this.returnDefaultJar()) ? true : false) {
             let block = false;
             this.state.optionB.forEach(x => !x.jar.label ? block = true : '')
 
@@ -291,18 +293,17 @@ class Sidebar extends React.Component {
 
                                 }
                             </select>
-                          <input
+                            <input
                                 className={!this.state.isError ? 'input option-percent' : 'input warning  option-percent'}
-                                type='number'
+                                pattern="[0-9]*"
                                 value={this.state.optionB[index].percent}
                                 placeholder='%'
                                 onChange={(e) => this.handlePercentB(e, index)}
-                                min='0'
-                                onKeyPress={(e) => e.preventDefault()}
-                            />
+                                onBlur = {(e) => this.handlePercentB(e, index)}
+                            /><span></span>
                         </div>)
                 })}
-                <div className='plus-row'> {this.state.optionA && this.isDefaultJar() && this.state.percentSum < 100 && (100 - this.state.percentSum) + '% to default jar'}
+                <div className='plus-row'> {this.state.optionA && this.returnDefaultJar() && this.state.percentSum < 100 && (100 - this.state.percentSum) + '% to default jar'}
                     {this.state.optionA && this.addButtonVisible() && <button className='plus-btn'
                         onClick={this.addOption}>+</button>}</div>
             </div>
@@ -355,19 +356,19 @@ const returnSidebar = (jarList) => {
     return (
         <div className='sidebar'>
             <Link to={`add`}>
-                <button className="grey-btn"> <Icon icon={withPlus} size={18}/><span> Add Jar</span></button>
+                <button className="grey-btn"> <Icon icon={withPlus} size={18} /><span> Add Jar</span></button>
             </Link>
             <Link to={`history`}>
-                <button className='grey-btn'> <Icon icon={archive} size={18}/><span>  History</span></button>
+                <button className='grey-btn'> <Icon icon={archive} size={18} /><span>  History</span></button>
             </Link>
             <Link to={`transfer`}>
-                {jarList.length > 1 ? <button className="grey-btn"> <Icon icon={withCircleRight} size={18}/><span>  Transfer</span></button> : ''}
+                {jarList.length > 1 ? <button className="grey-btn"> <Icon icon={withCircleRight} size={18} /><span>  Transfer</span></button> : ''}
             </Link>
             <Link to={`invest`}>
-                {jarList.length > 0 ? <button className='green-btn'> <Icon icon={withCircleUp} size={18}/><span>  Invest</span></button> : ''}
+                {jarList.length > 0 ? <button className='green-btn'> <Icon icon={withCircleUp} size={18} /><span>  Invest</span></button> : ''}
             </Link>
             <Link to={`widraw`}>
-                {jarList.length > 0 ? <button className='red-btn'> <Icon icon={withCircleDown} size={18}/><span>  Widraw</span></button> : ''}
+                {jarList.length > 0 ? <button className='red-btn'> <Icon icon={withCircleDown} size={18} /><span>  Widraw</span></button> : ''}
             </Link>
         </div>
     )

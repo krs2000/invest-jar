@@ -134,6 +134,17 @@ h2 {
   margin-left: 2%;
 }
 
+.option-percent + span {
+  position: relative;
+}
+
+.option-percent + span:after {
+  content: "%";
+  position: absolute;
+  top: 0;
+  right: 30px;
+}
+
 @media (min-width: 768px) {
   .option-b {
     width: 58% !important;
