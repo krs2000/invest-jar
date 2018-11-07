@@ -6,7 +6,7 @@ const dollar = new Currency(
 const euro = new Currency(
     'euro', '€')
 const pound = new Currency(
-    'bitcoin', '£')
+    'pound', '£')
 
 
 let initialState = [dollar, euro, pound];
